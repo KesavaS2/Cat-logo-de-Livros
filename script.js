@@ -1,49 +1,57 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Simulação de dados de livros e autores
-    const livros = [
-        { titulo: 'Dom Casmurro', autor: 'Machado de Assis', idioma: 'Português', downloads: 1000 },
-        { titulo: 'Emma', autor: 'Jane Alston', idioma: 'Inglês', downloads: 800 },
-        // Adicione mais livros conforme necessário
-    ];
+    // Função para buscar livro por título na API Gutendex
+    async function buscarLivro() {
+        const titulo = document.getElementById('titulo').value;
+        const response = await fetch(`https://gutendex.com/books/?search=${titulo}`);
+        const data = await response.json();
+        const livros = data.results;
 
-    const autores = [
-        { nome: 'Machado de Assis', nascimento: 1839, falecimento: 1908 },
-        { nome: 'Jane Alston', nascimento: 1975, falecimento: null },
-        // Adicione mais autores conforme necessário
-    ];
+        exibirLivros(livros);
+        exibirAutores(livros);
+    }
 
     // Função para exibir livros
-    function exibirLivros() {
+    function exibirLivros(livros) {
         const livrosSection = document.getElementById('livros');
         livrosSection.innerHTML = '';
         livros.forEach(livro => {
             const livroDiv = document.createElement('div');
             livroDiv.innerHTML = `
-                <h2>${livro.titulo}</h2>
-                <p>Autor: ${livro.autor}</p>
-                <p>Idioma: ${livro.idioma}</p>
-                <p>Downloads: ${livro.downloads}</p>
+                <h3>${livro.title}</h3>
+                <p>Autor: ${livro.authors.length > 0 ? livro.authors[0].name : 'Desconhecido'}</p>
+                <p>Idioma: ${livro.languages.length > 0 ? livro.languages[0] : 'Desconhecido'}</p>
+                <p>Downloads: ${livro.download_count}</p>
             `;
             livrosSection.appendChild(livroDiv);
         });
     }
 
     // Função para exibir autores
-    function exibirAutores() {
+    function exibirAutores(livros) {
         const autoresSection = document.getElementById('autores');
         autoresSection.innerHTML = '';
-        autores.forEach(autor => {
+        const autoresMap = new Map();
+
+        livros.forEach(livro => {
+            if (livro.authors.length > 0) {
+                const autor = livro.authors[0];
+                if (!autoresMap.has(autor.name)) {
+                    autoresMap.set(autor.name, autor);
+                }
+            }
+        });
+
+        autoresMap.forEach((autor, nome) => {
             const autorDiv = document.createElement('div');
             autorDiv.innerHTML = `
-                <h2>${autor.nome}</h2>
-                <p>Ano de Nascimento: ${autor.nascimento}</p>
-                <p>Ano de Falecimento: ${autor.falecimento ? autor.falecimento : 'Vivo'}</p>
+                <h3>${autor.name}</h3>
+                <p>Ano de Nascimento: ${autor.birth_year ? autor.birth_year : 'Desconhecido'}</p>
+                <p>Ano de Falecimento: ${autor.death_year ? autor.death_year : 'Desconhecido'}</p>
             `;
             autoresSection.appendChild(autorDiv);
         });
     }
 
-    // Chamada inicial para exibir livros e autores
-    exibirLivros();
-    exibirAutores();
+    // Expondo a função buscarLivro para ser usada no HTML
+    window.buscarLivro = buscarLivro;
 });
