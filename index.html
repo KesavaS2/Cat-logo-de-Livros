@@ -3,28 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Livros</title>
+    <title>LiterAlura</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Catálogo de Livros</h1>
+        <h1>Catálogo LiterAlura</h1>
     </header>
+
     <main>
-        <section id="busca">
-            <h2>Buscar Livro por Título</h2>
-            <input type="text" id="titulo" placeholder="Digite o título do livro">
-            <button onclick="buscarLivro()">Buscar</button>
+        <section class="search">
+            <h2>Busca de Livros</h2>
+            <input type="text" id="searchInput" placeholder="Digite o título do livro">
+            <button id="searchButton">Buscar</button>
         </section>
-        <section id="livros">
-            <h2>Livros Encontrados</h2>
-            <!-- Aqui serão exibidos os livros -->
+
+        <section class="filters">
+            <h2>Filtros</h2>
+            <div>
+                <label for="filterAutor">Autor:</label>
+                <input type="text" id="filterAutor">
+            </div>
+            <div>
+                <label for="filterIdioma">Idioma:</label>
+                <input type="text" id="filterIdioma">
+            </div>
+            <div>
+                <label for="filterGenero">Gênero:</label>
+                <input type="text" id="filterGenero">
+            </div>
+            <button id="filterButton">Filtrar</button>
         </section>
-        <section id="autores">
-            <h2>Autores Encontrados</h2>
-            <!-- Aqui serão exibidos os autores -->
+
+        <section class="results">
+            <h2>Resultados da Busca</h2>
+            <div id="booksContainer"></div>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2024 LiterAlura</p>
+    </footer>
+
     <script src="scripts.js"></script>
 </body>
 </html>
