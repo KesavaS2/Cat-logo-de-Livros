@@ -1,60 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Livros</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Livros</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header>
     <h1>Catálogo de Livros</h1>
-    <input type="text" id="searchInput" placeholder="Buscar por título...">
-    <button onclick="searchBooks()">Buscar</button>
-
-    <div id="bookList">
-        <!-- Aqui serão exibidos os livros -->
-    </div>
-
-    <script>
-        function searchBooks() {
-            const title = document.getElementById("searchInput").value.trim();
-
-            fetch(`/books/search?title=${encodeURIComponent(title)}`)
-            .then(response => response.json())
-            .then(data => {
-                const bookListDiv = document.getElementById("bookList");
-                bookListDiv.innerHTML = "";
-
-                data.forEach(book => {
-                    const bookDiv = document.createElement("div");
-                    bookDiv.innerHTML = `<strong>Título:</strong> ${book.title}<br>
-                                         <strong>Autor:</strong> ${book.author}<br>
-                                         <strong>Idioma:</strong> ${book.language}<br>
-                                         <strong>Downloads:</strong> ${book.downloads}`;
-                    bookListDiv.appendChild(bookDiv);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-        }
-        
-        // Carregar todos os livros inicialmente
-        window.onload = function() {
-            fetch('/books')
-            .then(response => response.json())
-            .then(data => {
-                const bookListDiv = document.getElementById("bookList");
-                bookListDiv.innerHTML = "";
-
-                data.forEach(book => {
-                    const bookDiv = document.createElement("div");
-                    bookDiv.innerHTML = `<strong>Título:</strong> ${book.title}<br>
-                                         <strong>Autor:</strong> ${book.author}<br>
-                                         <strong>Idioma:</strong> ${book.language}<br>
-                                         <strong>Downloads:</strong> ${book.downloads}`;
-                    bookListDiv.appendChild(bookDiv);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
+  </header>
+  <main>
+    <section id="filtro">
+      <input type="search" id="busca" placeholder="Buscar livro por título">
+      <button id="buscar">Buscar</button>
+      <select id="idioma">
+        <option value="">Selecione um idioma</option>
+        <option value="Português">Português</option>
+        <option value="Inglês">Inglês</option>
+        <option value="Espanhol">Espanhol</option>
+      </select>
+    </section>
+    <section id="livros">
+      <h2>Livros</h2>
+      <ul id="lista-livros"></ul>
+    </section>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
