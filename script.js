@@ -1,50 +1,61 @@
-document.getElementById('search').addEventListener('click', () => {
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
-    const year = document.getElementById('year').value;
-    const language = document.getElementById('language').value;
+function buscarLivros() {
+    const titulo = document.getElementById('titulo').value;
+    const autor = document.getElementById('autor').value;
+    const idioma = document.getElementById('idioma').value;
 
-    fetchBooks({ title, author, year, language });
-});
+    let url = `https://gutendex.com/books`;
 
-document.getElementById('topRated').addEventListener('click', () => {
-    fetchBooks({ sortBy: 'rating', limit: 10 });
-});
-
-document.getElementById('mostDownloaded').addEventListener('click', () => {
-    fetchBooks({ sortBy: 'downloads', limit: 10 });
-});
-
-async function fetchBooks(filters) {
-    let url = 'https://gutendex.com/books/?page=2';
-    if (filters.title) url += `title=${filters.title}&`;
-    if (filters.author) url += `author=${filters.author}&`;
-    if (filters.year) url += `year=${filters.year}&`;
-    if (filters.language) url += `language=${filters.language}&`;
-    if (filters.sortBy) url += `sortBy=${filters.sortBy}&`;
-    if (filters.limit) url += `limit=${filters.limit}&`;
-
-    const response = await fetch(url);
-    const books = await response.json();
-    displayBooks(books);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let livrosLista = document.getElementById('livros-lista');
+            livrosLista.innerHTML = '';
+            data.forEach(livro => {
+                let div = document.createElement('div');
+                div.innerHTML = `<strong>Título:</strong> ${livro.title} <br>
+                                 <strong>Autor:</strong> ${livro.authors.map(a => a.name).join(', ')} <br>
+                                 <strong>Idioma:</strong> ${livro.languages.join(', ')} <br>
+                                 <strong>Download:</strong> <a href="${livro.formats['text/html']}">Link</a> <br>`;
+                livrosLista.appendChild(div);
+            });
+        });
 }
 
-function displayBooks(books) {
-    const booksContainer = document.getElementById('books');
-    booksContainer.innerHTML = '';
-
-    books.forEach(book => {
-        const bookElement = document.createElement('div');
-        bookElement.classList.add('book');
-        
-        bookElement.innerHTML = `
-            <img src="${book.cover}" alt="${book.title}">
-            <h3>${book.title}</h3>
-            <p>${book.author}</p>
-            <p>${book.year}</p>
-            <p>${book.language}</p>
-        `;
-        
-        booksContainer.appendChild(bookElement);
-    });
+function carregarTop10Livros() {
+    fetch('/api/books/top10')
+        .then(response => response.json())
+        .then(data => {
+            let top10Livros = document.getElementById('top10-livros');
+            top10Livros.innerHTML = '';
+            data.forEach(livro => {
+                let div = document.createElement('div');
+                div.innerHTML = `<strong>Título:</strong> ${livro.title} <br>
+                                 <strong>Autor:</strong> ${livro.authors.map(a => a.name).join(', ')} <br>
+                                 <strong>Idioma:</strong> ${livro.languages.join(', ')} <br>
+                                 <strong>Download:</strong> <a href="${livro.formats['text/html']}">Link</a> <br>`;
+                top10Livros.appendChild(div);
+            });
+        });
 }
+
+function carregarMaisBaixadosLivros() {
+    fetch('/api/books/most_downloaded')
+        .then(response => response.json())
+        .then(data => {
+            let maisBaixadosLivros = document.getElementById('mais-baixados-livros');
+            maisBaixadosLivros.innerHTML = '';
+            data.forEach(livro => {
+                let div = document.createElement('div');
+                div.innerHTML = `<strong>Título:</strong> ${livro.title} <br>
+                                 <strong>Autor:</strong> ${livro.authors.map(a => a.name).join(', ')} <br>
+                                 <strong>Idioma:</strong> ${livro.languages.join(', ')} <br>
+                                 <strong>Download:</strong> <a href="${livro.formats['text/html']}">Link</a> <br>`;
+                maisBaixadosLivros.appendChild(div);
+            });
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    carregarTop10Livros();
+    carregarMaisBaixadosLivros();
+});
