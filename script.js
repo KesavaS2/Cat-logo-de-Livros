@@ -1,82 +1,35 @@
-// scripts.js
+const apiUrl = 'http://localhost:8080/livro';
+const bookListElement = document.getElementById('book-list');
+const filterFormElement = document.getElementById('filter-form');
+const filterBtnElement = document.getElementById('filter-btn');
 
-document.addEventListener('DOMContentLoaded', function() {
-  const searchButton = document.getElementById('searchButton');
-  const filterButton = document.getElementById('filterButton');
-  const booksContainer = document.getElementById('booksContainer');
-
-  const apiUrl = 'https://gutendex.com/books/';
-
-  async function searchBooks(title) {
-    try {
-      const response = await fetch(`${apiUrl}?search=${title}`);
-      const data = await response.json();
-      return await data.results; // Wait for the promise to resolve
-    } catch (error) {
-      console.error(error);
-      return [];
+filterBtnElement.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const filters = {};
+    const formData = new FormData(filterFormElement);
+    for (const [key, value] of formData) {
+        if (value) {
+            filters[key] = value;
+        }
     }
-  }
-
-  async function filterBooks(filters) {
-    try {
-      const { author, language, genre } = filters;
-      let query = '';
-
-      if (author) {
-        query += `&author=${author}`;
-      }
-      if (language) {
-        query += `&languages=${language}`;
-      }
-      if (genre) {
-        query += `&topic=${genre}`;
-      }
-
-      const response = await fetch(`${apiUrl}?${query}`);
-      const data = await response.json();
-      return await data.results; // Wait for the promise to resolve
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  }
-
-  function displayBooks(books) {
-    booksContainer.innerHTML = '';
-    books.forEach(book => {
-      const bookElement = document.createElement('div');
-      bookElement.classList.add('book');
-      bookElement.innerHTML = `
-        <h3>${book.title}</h3>
-        <p><strong>Autor:</strong> ${book.authors.length? book.authors[0].name : 'Desconhecido'}</p>
-        <p><strong>Idioma:</strong> ${book.languages.length? book.languages[0] : 'Desconhecido'}</p>
-        <p><strong>Downloads:</strong> ${book.download_count}</p>
-      `;
-      booksContainer.appendChild(bookElement);
+    const response = await fetch(`${apiUrl}/filtrar`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filters)
     });
-  }
-
-  searchButton.addEventListener('click', async () => {
-    const searchInput = document.getElementById('searchInput').value.trim();
-    if (searchInput === '') {
-      alert('Por favor, digite um título de livro');
-      return;
-    }
-    const books = await searchBooks(searchInput);
-    displayBooks(books);
-  });
-
-  filterButton.addEventListener('click', async () => {
-    const filterAutor = document.getElementById('filterAutor').value;
-    const filterIdioma = document.getElementById('filterIdioma').value;
-    const filterGenero = document.getElementById('filterGenero').value;
-    const filters = {
-      author: filterAutor,
-      language: filterIdioma,
-      genre: filterGenero,
-    };
-    const books = await filterBooks(filters);
-    displayBooks(books);
-  });
+    const books = await response.json();
+    renderBookList(books);
 });
+
+async function renderBookList(books) {
+    bookListElement.innerHTML = '';
+    books.forEach((book) => {
+        const bookElement = document.createElement('li');
+        bookElement.textContent = `${book.title} - ${book.author}`;
+        bookListElement.appendChild(bookElement);
+    });
+}
+
+async function
