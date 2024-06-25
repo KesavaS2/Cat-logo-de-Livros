@@ -1,12 +1,10 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    background-color: #f7f7f7;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #ffe6cc;
     padding: 20px;
     text-align: center;
 }
@@ -18,40 +16,32 @@ main {
     padding: 20px;
 }
 
-.search, .filters {
-    background-color: #f7f7f7;
+.filters {
+    background-color: #fff;
     padding: 20px;
     border: 1px solid #ddd;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.search input[type="text"] {
-    width: 50%;
-    padding: 10px;
-    font-size: 16px;
-}
-
-.search button {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.filters form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .filters label {
-    display: block;
     margin-bottom: 10px;
 }
 
 .filters input[type="text"] {
-    width: 50%;
     padding: 10px;
-    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
 }
 
-.filters button {
+.filters button[type="button"] {
     background-color: #4CAF50;
     color: #fff;
     padding: 10px 20px;
@@ -60,31 +50,33 @@ main {
     cursor: pointer;
 }
 
-.results {
-    background-color: #f7f7f7;
-    padding: 20px;
-    border: 1px solid #ddd;
+.filters button[type="button"]:hover {
+    background-color: #3e8e41;
 }
 
-.book {
+.book-list {
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ddd;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.book h3 {
-    margin-top: 0;
+.book-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.book p {
-    margin-bottom: 10px;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
+.book-list li {
     padding: 10px;
-    text-align: center;
-    clear: both;
+    border-bottom: 1px solid #ccc;
+}
+
+.book-list li:last-child {
+    border-bottom: none;
+}
+
+.book-list li:hover {
+    background-color: #f7f7f7;
 }
