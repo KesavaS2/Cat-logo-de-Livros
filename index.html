@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Livros</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Livros</h1>
+    </header>
+    <main>
+        <section class="filters">
+            <h2>Filtros</h2>
+            <form>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title">
+                <br>
+                <label for="year">Ano:</label>
+                <input type="number" id="year" name="year">
+                <br>
+                <label for="author">Autor:</label>
+                <input type="text" id="author" name="author">
+                <br>
+                <label for="language">Idioma:</label>
+                <select id="language" name="language">
+                    <option value="">Selecione</option>
+                    <option value="pt">Português</option>
+                    <option value="en">Inglês</option>
+                    <option value="es">Espanhol</option>
+                    <option value="fr">Francês</option>
+                </select>
+                <br>
+                <button type="submit">Filtrar</button>
+            </form>
+            <button id="best-books">10 Melhores Livros</button>
+            <button id="most-downloaded">10 Mais Baixados</button>
+        </section>
+        <section class="book-list">
+            <h2>Livros</h2>
+            <ul id="book-list"></ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
