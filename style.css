@@ -38,7 +38,6 @@ main {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 100%;
 }
 
 .filters button[type="button"] {
@@ -71,10 +70,6 @@ main {
 .book-list li {
     padding: 10px;
     border-bottom: 1px solid #ccc;
-}
-
-.book-list li:last-child {
-    border-bottom: none;
 }
 
 .book-list li:hover {
