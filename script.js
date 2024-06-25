@@ -1,61 +1,58 @@
-function buscarLivros() {
-    const titulo = document.getElementById('titulo').value;
-    const autor = document.getElementById('autor').value;
-    const idioma = document.getElementById('idioma').value;
+const apiUrl = 'https://gutendex.com/books/';
+constbookList = document.getElementById('book-list');
+const filters = document.querySelector('.filters');
+const bestBooksButton = document.getElementById('best-books');
+const mostDownloadedButton = document.getElementById('most-downloaded');
 
-    let url = `https://gutendex.com/books`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let livrosLista = document.getElementById('livros-lista');
-            livrosLista.innerHTML = '';
-            data.forEach(livro => {
-                let div = document.createElement('div');
-                div.innerHTML = `<strong>Título:</strong> ${livro.title} <br>
-                                 <strong>Autor:</strong> ${livro.authors.map(a => a.name).join(', ')} <br>
-                                 <strong>Idioma:</strong> ${livro.languages.join(', ')} <br>
-                                 <strong>Download:</strong> <a href="${livro.formats['text/html']}">Link</a> <br>`;
-                livrosLista.appendChild(div);
-            });
-        });
-}
-
-function carregarTop10Livros() {
-    fetch('/api/books/top10')
-        .then(response => response.json())
-        .then(data => {
-            let top10Livros = document.getElementById('top10-livros');
-            top10Livros.innerHTML = '';
-            data.forEach(livro => {
-                let div = document.createElement('div');
-                div.innerHTML = `<strong>Título:</strong> ${livro.title} <br>
-                                 <strong>Autor:</strong> ${livro.authors.map(a => a.name).join(', ')} <br>
-                                 <strong>Idioma:</strong> ${livro.languages.join(', ')} <br>
-                                 <strong>Download:</strong> <a href="${livro.formats['text/html']}">Link</a> <br>`;
-                top10Livros.appendChild(div);
-            });
-        });
-}
-
-function carregarMaisBaixadosLivros() {
-    fetch('/api/books/most_downloaded')
-        .then(response => response.json())
-        .then(data => {
-            let maisBaixadosLivros = document.getElementById('mais-baixados-livros');
-            maisBaixadosLivros.innerHTML = '';
-            data.forEach(livro => {
-                let div = document.createElement('div');
-                div.innerHTML = `<strong>Título:</strong> ${livro.title} <br>
-                                 <strong>Autor:</strong> ${livro.authors.map(a => a.name).join(', ')} <br>
-                                 <strong>Idioma:</strong> ${livro.languages.join(', ')} <br>
-                                 <strong>Download:</strong> <a href="${livro.formats['text/html']}">Link</a> <br>`;
-                maisBaixadosLivros.appendChild(div);
-            });
-        });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    carregarTop10Livros();
-    carregarMaisBaixadosLivros();
+filters.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const year = document.getElementById('year').value;
+    const author = document.getElementById('author').value;
+    const language = document.getElementById('language').value;
+    fetchBooks(title, year, author, language);
 });
+
+bestBooksButton.addEventListener('click', () => {
+    fetchBooks(null, null, null, null, 'rating');
+});
+
+mostDownloadedButton.addEventListener('click', () => {
+    fetchBooks(null, null, null, null, 'downloads');
+});
+
+function fetchBooks(title, year, author, language, sort) {
+    let url = apiUrl;
+    if (title) {
+        url += `title=${title}&`;
+    }
+    if (year) {
+        url += `year=${year}&`;
+    }
+    if (author) {
+        url += `author=${author}&`;
+    }
+    if (language) {
+        url += `language=${language}&`;
+    }
+    if (sort) {
+        url += `sort=${sort}&`;
+    }
+    url += `page=1`;
+    fetch(url)
+       .then(response => response.json())
+       .then(data => {
+            bookList.innerHTML = '';
+            data.results.forEach(book => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <img src="${book.formats['image/jpeg']}">
+                    <span>${book.title}</span>
+                    <span>by ${book.authors[0].name}</span>
+                    <span>(${book.language})</span>
+                `;
+                bookList.appendChild(li);
+            });
+        })
+       .catch(error => console.error(error));
+}
