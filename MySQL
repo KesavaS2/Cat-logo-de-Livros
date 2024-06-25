@@ -1,7 +1,0 @@
-CREATE TABLE livros (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  titulo VARCHAR(255),
-  autor VARCHAR(255),
-  idioma VARCHAR(50),
-  downloads INT
-);
