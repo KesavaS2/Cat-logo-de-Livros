@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Livros</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Catálogo de Livros</h1>
@@ -15,6 +14,47 @@
         <!-- Aqui serão exibidos os livros -->
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function searchBooks() {
+            const title = document.getElementById("searchInput").value.trim();
+
+            fetch(`/books/search?title=${encodeURIComponent(title)}`)
+            .then(response => response.json())
+            .then(data => {
+                const bookListDiv = document.getElementById("bookList");
+                bookListDiv.innerHTML = "";
+
+                data.forEach(book => {
+                    const bookDiv = document.createElement("div");
+                    bookDiv.innerHTML = `<strong>Título:</strong> ${book.title}<br>
+                                         <strong>Autor:</strong> ${book.author}<br>
+                                         <strong>Idioma:</strong> ${book.language}<br>
+                                         <strong>Downloads:</strong> ${book.downloads}`;
+                    bookListDiv.appendChild(bookDiv);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        // Carregar todos os livros inicialmente
+        window.onload = function() {
+            fetch('/books')
+            .then(response => response.json())
+            .then(data => {
+                const bookListDiv = document.getElementById("bookList");
+                bookListDiv.innerHTML = "";
+
+                data.forEach(book => {
+                    const bookDiv = document.createElement("div");
+                    bookDiv.innerHTML = `<strong>Título:</strong> ${book.title}<br>
+                                         <strong>Autor:</strong> ${book.author}<br>
+                                         <strong>Idioma:</strong> ${book.language}<br>
+                                         <strong>Downloads:</strong> ${book.downloads}`;
+                    bookListDiv.appendChild(bookDiv);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
