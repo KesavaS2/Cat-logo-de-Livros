@@ -1,45 +1,90 @@
-/* styles.css */
-
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f3e9; /* Cor de fundo pastel */
-  color: #5a5a5a; /* Cor do texto pastel */
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* ... */
-
-.search, .filters, .results {
-  background-color: #fff8ec; /* Cor pastel */
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
 }
 
-input[type="text"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: calc(100% - 22px); /* Para ajustar o padding */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
-button {
-  background-color: #d8bfae; /* Cor pastel */
-  border: none;
-  padding: 10px 20px;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
+.search, .filters {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
 }
 
-button:hover {
-  background-color: #c8a99a; /* Cor pastel mais escura */
+.search input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
 }
 
-/* ... */
+.search button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filters label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.filters input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.filters button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.results {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.book {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.book h3 {
+    margin-top: 0;
+}
+
+.book p {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    clear: both;
+}
