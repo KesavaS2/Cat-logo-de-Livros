@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Catálogo de Livros</h1>
-    </header>
-    <main>
-        <section class="filters">
-            <h2>Filtros</h2>
-            <form>
-                <label for="genre">Gênero:</label>
-                <input type="text" id="genre" name="genre">
-                <label for="author">Autor:</label>
-                <input type="text" id="author" name="author">
-                <label for="language">Idioma:</label>
-                <input type="text" id="language" name="language">
-                <label for="title">Título:</label>
-                <input type="text" id="title" name="title">
-                <button id="filter-btn">Filtrar</button>
-            </form>
-        </section>
-        <section class="book-list">
-            <h2>Livros</h2>
-            <ul id="book-list">
-                <!-- Lista de livros será renderizada aqui -->
-            </ul>
-        </section>
-    </main>
+    <h1>Catálogo de Livros</h1>
+    <input type="text" id="searchInput" placeholder="Buscar por título...">
+    <button onclick="searchBooks()">Buscar</button>
+
+    <div id="bookList">
+        <!-- Aqui serão exibidos os livros -->
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
