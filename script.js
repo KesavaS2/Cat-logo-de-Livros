@@ -1,35 +1,26 @@
-const apiUrl = 'http://localhost:8080/livro';
-const bookListElement = document.getElementById('book-list');
-const filterFormElement = document.getElementById('filter-form');
-const filterBtnElement = document.getElementById('filter-btn');
+const apiUrl = 'https://gutendex.com/books';
 
-filterBtnElement.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const filters = {};
-    const formData = new FormData(filterFormElement);
-    for (const [key, value] of formData) {
-        if (value) {
-            filters[key] = value;
-        }
-    }
-    const response = await fetch(`${apiUrl}/filtrar`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(filters)
-    });
-    const books = await response.json();
-    renderBookList(books);
-});
+async function fetchBooks() {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data.results;
+}
 
-async function renderBookList(books) {
+function renderBookList(books) {
+    const bookListElement = document.getElementById('book-list');
     bookListElement.innerHTML = '';
     books.forEach((book) => {
         const bookElement = document.createElement('li');
-        bookElement.textContent = `${book.title} - ${book.author}`;
+        bookElement.textContent = `${book.title} - ${book.authors[0].name}`;
         bookListElement.appendChild(bookElement);
     });
 }
 
-async function
+document.getElementById('filter-btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const filters = new FormData(filterForm);
+    const books = await fetchBooks(filters);
+    renderBookList(books);
+});
+
+const filterForm = document.querySelector('filter-form');
