@@ -1,0 +1,10 @@
+book_catalog/
+├── app.py
+├── templates/
+│   └── index.html
+├── static/
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       └── script.js
+└── requirements.txt
