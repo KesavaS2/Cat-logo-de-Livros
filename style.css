@@ -1,85 +1,50 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    background-color: #f9f9f9;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
 .container {
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    margin-top: 30px;
-    color: #333;
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #6b705c;
 }
 
-.filters, .actions {
-    display: flex;
-    justify-content: center;
+.search-filters, .results, .top-books, .most-downloaded {
     margin-bottom: 20px;
 }
 
-.filters input, .filters button, .actions button {
-    margin: 5px;
+input {
     padding: 10px;
+    margin-right: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
 }
 
-.filters input {
-    flex: 1;
-    max-width: 200px;
-}
-
-.filters button, .actions button {
-    background-color: #d5e8d4;
-    color: #333;
+button {
+    padding: 10px 20px;
+    background-color: #81b29a;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.filters button:hover, .actions button:hover {
-    background-color: #b7ddb0;
+button:hover {
+    background-color: #6b705c;
 }
 
-.books {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.book {
-    background-color: #f8f9c9;
-    border: 1px solid #e6e6e6;
-    border-radius: 5px;
-    margin: 10px;
+.results div, .top-books div, .most-downloaded div {
     padding: 10px;
-    width: 200px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.book img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.book h3 {
-    margin: 10px 0;
-    font-size: 1.1em;
-}
-
-.book p {
-    margin: 5px 0;
-    font-size: 0.9em;
+    border-bottom: 1px solid #ccc;
 }
