@@ -1,60 +1,31 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+    font-family: Arial, sans-serif;
 }
 
-header {
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
+#book-table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#book-table th, #book-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-#filtro {
-  margin-bottom: 20px;
+#book-table th {
+    background-color: #f0f0f0;
 }
 
-#busca {
-  width: 200px;
-  padding: 10px;
-  font-size: 16px;
+.dlt-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#buscar {
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#idioma {
-  width: 200px;
-  padding: 10px;
-  font-size: 16px;
-}
-
-#livros {
-  margin-top: 20px;
-}
-
-#lista-livros {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#lista-livros li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-#lista-livros li:hover {
-  background-color: #f0f0f0;
+.dlt-btn:hover {
+    background-color: #3e8e41;
 }
