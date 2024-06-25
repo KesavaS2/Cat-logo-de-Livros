@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       const response = await fetch(`${apiUrl}?search=${title}`);
       const data = await response.json();
-      return data.results;
+      return await data.results; // Wait for the promise to resolve
     } catch (error) {
       console.error(error);
       return [];
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const response = await fetch(`${apiUrl}?${query}`);
       const data = await response.json();
-      return data.results;
+      return await data.results; // Wait for the promise to resolve
     } catch (error) {
       console.error(error);
       return [];
@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
       bookElement.classList.add('book');
       bookElement.innerHTML = `
         <h3>${book.title}</h3>
-        <p><strong>Autor:</strong> ${book.authors.length ? book.authors[0].name : 'Desconhecido'}</p>
-        <p><strong>Idioma:</strong> ${book.languages.length ? book.languages[0] : 'Desconhecido'}</p>
+        <p><strong>Autor:</strong> ${book.authors.length? book.authors[0].name : 'Desconhecido'}</p>
+        <p><strong>Idioma:</strong> ${book.languages.length? book.languages[0] : 'Desconhecido'}</p>
         <p><strong>Downloads:</strong> ${book.download_count}</p>
       `;
       booksContainer.appendChild(bookElement);
@@ -63,4 +63,20 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('Por favor, digite um título de livro');
       return;
     }
-    const books = await searchBooks(searchInput
+    const books = await searchBooks(searchInput);
+    displayBooks(books);
+  });
+
+  filterButton.addEventListener('click', async () => {
+    const filterAutor = document.getElementById('filterAutor').value;
+    const filterIdioma = document.getElementById('filterIdioma').value;
+    const filterGenero = document.getElementById('filterGenero').value;
+    const filters = {
+      author: filterAutor,
+      language: filterIdioma,
+      genre: filterGenero,
+    };
+    const books = await filterBooks(filters);
+    displayBooks(books);
+  });
+});
